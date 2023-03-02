@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 module.exports = class Mongoose {
   constructor(options = {}) {
 
+    this.options = options
     /**
     * The connection URI for this instance
     * @type {string}
@@ -38,6 +39,8 @@ module.exports = class Mongoose {
   * @returns {Object<Database>}
   */
   init() {
+    if(!this.options.enable) return;
+    
     this.db.set('strictQuery', true)
     this.db.connect(this.connector, this.settings)
     .catch((error) => {
